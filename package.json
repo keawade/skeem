@@ -1,0 +1,23 @@
+{
+  "name": "skeem",
+  "version": "0.0.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/keawade/skeem.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/keawade/skeem/issues"
+  },
+  "homepage": "https://github.com/keawade/skeem#readme",
+  "devDependencies": {
+    "@tsconfig/esm": "^1.0.3",
+    "@tsconfig/node18": "^2.0.1",
+    "@tsconfig/recommended": "^1.0.2",
+    "typescript": "^5.0.4"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}
