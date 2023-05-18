@@ -1,18 +1,18 @@
 import { Inject } from '@nestjs/common';
 import { Command, CommandRunner } from 'nest-commander';
 import { LogService } from '../logger/index.js';
-import commandExists from 'command-exists';
+import { default as commandExists } from 'command-exists';
 import { execa } from 'execa';
-import semver from 'semver';
-
-const REQUIRED_NPM_VERSION = '7.0.0';
+import { gt } from 'semver';
 
 @Command({
   name: 'doctor',
   description: 'check dependency presence',
 })
 export class DoctorCommand extends CommandRunner {
-  constructor(@Inject(LogService) private readonly logger: LogService) {
+  private readonly REQUIRED_NPM_VERSION = '7.0.0';
+
+  public constructor(@Inject(LogService) private readonly logger: LogService) {
     super();
   }
 
@@ -21,9 +21,9 @@ export class DoctorCommand extends CommandRunner {
     try {
       if (
         (await commandExists('npm')) &&
-        semver.gt(
+        gt(
           (await execa('npm', ['--version'])).stdout,
-          REQUIRED_NPM_VERSION
+          this.REQUIRED_NPM_VERSION
         )
       ) {
         dependenciesInstalled = true;
@@ -35,7 +35,9 @@ export class DoctorCommand extends CommandRunner {
     }
 
     if (!dependenciesInstalled) {
-      this.logger.error(`npm v${REQUIRED_NPM_VERSION}+ required for skeem.`);
+      this.logger.error(
+        `npm v${this.REQUIRED_NPM_VERSION}+ required for Skeem.`
+      );
     }
 
     this.logger.success('All prerequisite commands were found.');

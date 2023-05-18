@@ -1,7 +1,6 @@
 import { Command, CommandRunner, Option } from 'nest-commander';
 import { LogService } from '../logger/index.js';
 import { Inject } from '@nestjs/common';
-import { NpmService } from '../services/NpmService.js';
 import { TemplateService } from '../services/TemplateService.js';
 
 interface IOptions {
