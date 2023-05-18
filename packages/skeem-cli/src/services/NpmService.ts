@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { execa, execaSync } from 'execa';
 import { eq } from 'semver';
 import { LogService } from '../logger/index.js';
+import { default as commandExists } from 'command-exists';
 
 type NpmOutdated = {
   current: string;
@@ -14,6 +15,14 @@ type NpmOutdated = {
 @Injectable()
 export class NpmService {
   public constructor(@Inject(LogService) private readonly logger: LogService) {}
+
+  public async getInstalledVersion() {
+    if (await commandExists('npm')) {
+      const { stdout: version } = await execa('npm', ['--version']);
+      return version;
+    }
+    throw new Error('npm is not installed');
+  }
 
   public async ensureGlobalPackageInstalled(
     packageName: string,

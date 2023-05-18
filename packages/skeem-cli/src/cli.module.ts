@@ -6,6 +6,8 @@ import { PatchCommand } from './commands/patch.command.js';
 import { DoctorCommand } from './commands/doctor.command.js';
 import { NpmService } from './services/NpmService.js';
 import { ConfigService } from './services/ConfigService.js';
+import { TemplateService } from './services/TemplateService.js';
+import { SchematicService } from './services/SchematicService.js';
 
 @Module({
   providers: [
@@ -16,6 +18,8 @@ import { ConfigService } from './services/ConfigService.js';
     LogService,
     ConfigService,
     NpmService,
+    TemplateService,
+    SchematicService,
   ],
 })
 export class CliModule {}
