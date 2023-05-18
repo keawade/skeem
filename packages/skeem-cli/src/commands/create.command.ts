@@ -3,12 +3,13 @@ import { LogService } from '../logger/index.js';
 import { Inject } from '@nestjs/common';
 import { TemplateService } from '../services/TemplateService.js';
 
-interface IOptions {
+type CreateOptions = {
   forceToVersion?: string;
   version: string;
   localPath: boolean;
   dryRun: boolean;
-}
+  schematicOptions?: Record<string, any>;
+};
 
 @Command({
   name: 'create',
@@ -26,7 +27,7 @@ export class CreateCommand extends CommandRunner {
     super();
   }
 
-  async run(args: [schematic: string], options: IOptions): Promise<any> {
+  async run(args: [schematic: string], options: CreateOptions): Promise<void> {
     this.logger.info(
       `args: ${JSON.stringify(args)}, options: ${JSON.stringify(options)}`
     );
@@ -70,5 +71,14 @@ export class CreateCommand extends CommandRunner {
   })
   public parseDryRun(): boolean {
     return true;
+  }
+
+  @Option({
+    flags: '--schematic-options <json-string>',
+    description:
+      'stringified json object of options to pass to the schematic execution',
+  })
+  public parseSchematicOptionsValue(value: string): Record<string, any> {
+    return JSON.parse(value);
   }
 }

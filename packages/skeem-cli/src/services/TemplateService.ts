@@ -31,13 +31,9 @@ export class TemplateService {
   ) {}
 
   public async create(
-    schematic: string | undefined,
+    schematic: string,
     options: TemplateCreateOptions
   ): Promise<void> {
-    if (!schematic) {
-      throw new Error('asdf');
-    }
-
     if (!options.localPath) {
       await this.npm.ensureGlobalPackageInstalled(schematic, options.version);
     }
@@ -50,6 +46,11 @@ export class TemplateService {
       dryRun: options.dryRun,
       fromVersion: '0.0.0',
       toVersion: options.forceToVersion ?? 'latest',
+    });
+
+    await this.config.updateConfigFile({
+      schematicPackage: schematic,
+      currentVersion: await this.npm.getGlobalPackageVersion(schematic),
     });
   }
 

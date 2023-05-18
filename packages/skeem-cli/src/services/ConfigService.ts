@@ -2,6 +2,8 @@ import { Inject, Injectable } from '@nestjs/common';
 import { cosmiconfig, type PublicExplorer } from 'cosmiconfig';
 import { LogService } from '../logger/index.js';
 import { z } from 'zod';
+import { writeFile } from 'fs/promises';
+import { join as pathJoin } from 'path';
 
 // const SkeemHistorySchema = z.object({
 //   type: z.union([z.literal('create'), z.literal('update'), z.literal('patch')]),
@@ -43,5 +45,9 @@ export class ConfigService {
     }
 
     return null;
+  }
+
+  public async updateConfigFile(config: SkeemConfig, dir = '.'): Promise<void> {
+    await writeFile(pathJoin(dir, '.skeemrc'), JSON.stringify(config, null, 2));
   }
 }

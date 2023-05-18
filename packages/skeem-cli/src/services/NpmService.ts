@@ -31,7 +31,7 @@ export class NpmService {
     const targetInstalled = await this.targetInstalled(packageName);
 
     if (!targetInstalled) {
-      this.installGlobalPackage(packageName, version);
+      await this.installGlobalPackage(packageName, version);
     }
   }
 
@@ -49,6 +49,18 @@ export class NpmService {
       `Installing package '${packageName}@${version}' globally.`
     );
     await execa('npm', ['install', '--global', `${packageName}@${version}`]);
+  }
+
+  public async getGlobalPackageVersion(packageName: string): Promise<string> {
+    const { stdout } = await execa('npm', [
+      'outdated',
+      '--global',
+      '--depth=0',
+      '--json',
+    ]);
+    const outdated: Record<string, NpmOutdated> = JSON.parse(stdout);
+
+    return outdated[packageName].current;
   }
 
   public async targetInstalled(
