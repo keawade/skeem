@@ -34,10 +34,6 @@ export class TemplateService {
     schematic: string | undefined,
     options: TemplateCreateOptions
   ): Promise<void> {
-    if (!schematic) {
-      throw new Error('asdf');
-    }
-
     if (!options.localPath) {
       await this.npm.ensureGlobalPackageInstalled(schematic, options.version);
     }
