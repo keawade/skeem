@@ -1,2 +1,2 @@
-export { LogService } from './LogService';
-export { handleError } from './handleError';
+export { LogService } from './LogService.js';
+export { handleError } from './handleError.js';

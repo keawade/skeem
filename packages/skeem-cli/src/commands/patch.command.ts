@@ -1,5 +1,5 @@
 import { Command, CommandRunner, Option } from 'nest-commander';
-import { LogService } from '../logger';
+import { LogService } from '../logger/index.js';
 import { Inject } from '@nestjs/common';
 
 interface IOptions {}
@@ -14,6 +14,6 @@ export class PatchCommand extends CommandRunner {
   }
 
   async run(_inputs: string[], options: IOptions): Promise<any> {
-    this.command.help();
+    this.logger.info('patch');
   }
 }

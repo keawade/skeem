@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { handleError } from './logger';
+import { handleError } from './logger/index.js';
 import { CommandFactory } from 'nest-commander';
 import { CliModule } from './cli.module.js';
 
