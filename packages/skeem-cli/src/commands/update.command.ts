@@ -2,7 +2,7 @@ import { Command, CommandRunner, Option } from 'nest-commander';
 import { LogService } from '../logger/index.js';
 import { Inject } from '@nestjs/common';
 
-interface IOptions {}
+type Options = {};
 
 @Command({
   name: 'update',
@@ -13,7 +13,7 @@ export class UpdateCommand extends CommandRunner {
     super();
   }
 
-  async run(_inputs: string[], options: IOptions): Promise<any> {
+  async run(_inputs: string[], options: Options): Promise<any> {
     this.logger.info('update');
   }
 }

@@ -52,13 +52,14 @@ export class NpmService {
   }
 
   public async getGlobalPackageVersion(packageName: string): Promise<string> {
-    const { stdout } = await execa('npm', [
-      'outdated',
-      '--global',
-      '--depth=0',
-      '--json',
-    ]);
-    const outdated: Record<string, NpmOutdated> = JSON.parse(stdout);
+    const outdated: Record<string, NpmOutdated> = JSON.parse(
+      (
+        await execa('npm', ['outdated', '--global', '--depth=0', '--json'], {
+          reject: false,
+          stderr: 'ignore',
+        })
+      ).stdout
+    );
 
     return outdated[packageName].current;
   }
@@ -67,12 +68,12 @@ export class NpmService {
     packageName: string,
     version = 'latest'
   ): Promise<boolean> {
-    const { stdout } = await execa('npm', [
-      'outdated',
-      '--global',
-      '--depth=0',
-      '--json',
-    ]);
+    const { stdout } = await execa(
+      'npm',
+      ['outdated', '--global', '--depth=0', '--json'],
+      { reject: false, stderr: 'ignore' }
+    );
+    console.warn(stdout);
     const outdated: Record<string, NpmOutdated> = JSON.parse(stdout);
 
     if (!outdated[packageName]) {

@@ -9,7 +9,7 @@ import { Inject, Injectable } from '@nestjs/common';
 // import { NpmService } from './NpmService.js';
 import { LogService } from '../logger/LogService.js';
 import { NpmService } from './NpmService.js';
-import * as inquirer from 'inquirer';
+import { default as inquirer } from 'inquirer';
 
 /**
  * Schematic implementation.
