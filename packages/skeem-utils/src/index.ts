@@ -1,5 +1,5 @@
-export type { SchematicOptions } from './interfaces/SchematicOptions.js';
-export type { VersionDefinition } from './interfaces/VersionDefinition.js';
+export type { SchematicOptions } from './types/SchematicOptions.js';
+export type { VersionDefinition } from './types/VersionDefinition.js';
 
 export * from './dependencies.js';
 export * from './ast/JsonFile';

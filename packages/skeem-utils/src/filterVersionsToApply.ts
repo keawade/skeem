@@ -3,8 +3,8 @@ import {
   gt as semverGreaterThan,
   lte as semverLessThanOrEqual,
 } from 'semver';
-import type { SchematicOptions } from './interfaces/SchematicOptions.js';
-import type { VersionDefinition } from './interfaces/VersionDefinition.js';
+import type { SchematicOptions } from './types/SchematicOptions.js';
+import type { VersionDefinition } from './types/VersionDefinition.js';
 
 /**
  * Reads a record of version + Rules returning an array of version + Rule tuples

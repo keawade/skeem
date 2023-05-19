@@ -1,10 +1,10 @@
 import type { TransformableInfo } from 'logform';
 import * as winston from 'winston';
 
-export interface ISchematicLogger extends winston.Logger {
+export type ISchematicLogger = winston.Logger & {
   success: (message: string, ...meta: any[]) => ISchematicLogger;
   rule: (message: string, ...meta: any[]) => ISchematicLogger;
-}
+};
 
 export const logFormatter = (info: TransformableInfo): string => {
   return (levelFormatters as any)[info.level](info.message);

@@ -1,5 +1,5 @@
 import { strings } from '@angular-devkit/core';
-import type { SchematicOptions } from './interfaces/SchematicOptions.js';
+import type { SchematicOptions } from './types/SchematicOptions.js';
 import { stringify } from './stringify.js';
 
 type FullSchematicOptions<T extends SchematicOptions> = T &

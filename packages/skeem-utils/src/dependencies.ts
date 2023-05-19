@@ -12,12 +12,12 @@ export enum NodeDependencyType {
   Optional = 'optionalDependencies',
 }
 
-export interface NodeDependency {
+export type NodeDependency = {
   type: NodeDependencyType;
   name: string;
   version: string;
   overwrite?: boolean;
-}
+};
 
 const ALL_DEPENDENCY_TYPE = [
   NodeDependencyType.Default,

@@ -14,7 +14,7 @@ import { File } from '../File.js';
 
 type InsertionIndex = (properties: string[]) => number;
 
-interface ModifyOptions {
+type ModifyOptions = {
   insertInOrder?: InsertionIndex;
   scalarType?:
     | 'BLOCK_FOLDED'
@@ -22,12 +22,12 @@ interface ModifyOptions {
     | 'PLAIN'
     | 'QUOTE_DOUBLE'
     | 'QUOTE_SINGLE';
-}
+};
 
-interface InsertOptions {
+type InsertOptions = {
   spaceBefore?: boolean;
   commentBefore?: string;
-}
+};
 
 export class YamlFile extends File<Document.Parsed> {
   public get Ast(): Document.Parsed {

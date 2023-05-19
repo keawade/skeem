@@ -1,8 +1,8 @@
 import type { Rule, SchematicContext } from '@angular-devkit/schematics';
 import { chain, Tree, callRule } from '@angular-devkit/schematics';
 import type { Observable } from 'rxjs';
-import type { VersionDefinition } from '../interfaces/VersionDefinition.js';
-import type { SchematicOptions } from '../interfaces/SchematicOptions.js';
+import type { VersionDefinition } from '../types/VersionDefinition.js';
+import type { SchematicOptions } from '../types/SchematicOptions.js';
 import { logger } from '../logger.js';
 
 const wrapRuleWithLogs =
