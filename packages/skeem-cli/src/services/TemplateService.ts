@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { SchematicService } from './SchematicService.js';
 import { LogService } from '../logger/index.js';
-import { ConfigService } from './ConfigService.js';
+import type { SkeemConfig } from './ConfigService.js';
 import { NpmService } from './NpmService.js';
 
 type TemplateCreateOptions = {
@@ -20,13 +20,21 @@ type TemplateUpdateOptions = {
   version: string;
 };
 
+type TemplatePatchOptions = {
+  dryRun?: boolean;
+  schematic?: string;
+  localPath: boolean;
+  forceFromVersion?: string;
+  forceToVersion?: string;
+  version: string;
+};
+
 @Injectable()
 export class TemplateService {
   public constructor(
     @Inject(LogService) private readonly logger: LogService,
     @Inject(SchematicService)
     private readonly schematicService: SchematicService,
-    @Inject(ConfigService) private readonly config: ConfigService,
     @Inject(NpmService) private readonly npm: NpmService
   ) {}
 
@@ -47,20 +55,12 @@ export class TemplateService {
       fromVersion: '0.0.0',
       toVersion: options.forceToVersion ?? 'latest',
     });
-
-    await this.config.updateConfigFile({
-      schematicPackage: schematic,
-      currentVersion: await this.npm.getGlobalPackageVersion(schematic),
-    });
   }
 
-  public async update(options: TemplateUpdateOptions): Promise<void> {
-    const config = await this.config.get();
-
-    if (!config) {
-      throw new Error('Skeem config not found.');
-    }
-
+  public async update(
+    options: TemplateUpdateOptions,
+    config: SkeemConfig
+  ): Promise<void> {
     this.schematicService.setTargetCollectionAndSchematic(
       options.schematic ?? config.schematicPackage
     );
@@ -71,6 +71,26 @@ export class TemplateService {
       ...config,
       fromVersion: options.forceFromVersion,
       toVersion: options.forceToVersion,
+      dryRun: options.dryRun,
+    });
+  }
+
+  public async patch(
+    schematic: string,
+    options: TemplatePatchOptions,
+    config: SkeemConfig | null
+  ): Promise<void> {
+    this.schematicService.setTargetCollectionAndSchematic(schematic);
+
+    if (!options.localPath) {
+      await this.npm.ensureGlobalPackageInstalled(
+        this.schematicService.collectionName!,
+        options.version
+      );
+    }
+
+    await this.schematicService.applySchematic('.', {
+      ...config,
       dryRun: options.dryRun,
     });
   }

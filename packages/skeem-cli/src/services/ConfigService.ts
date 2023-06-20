@@ -5,16 +5,16 @@ import { z } from 'zod';
 import { writeFile } from 'fs/promises';
 import { join as pathJoin } from 'path';
 
-// const SkeemHistorySchema = z.object({
-//   type: z.union([z.literal('create'), z.literal('update'), z.literal('patch')]),
-//   schemaGitUrl: z.string().optional(),
-//   version: z.string(),
-// });
+const SkeemHistorySchema = z.object({
+  type: z.union([z.literal('create'), z.literal('update'), z.literal('patch')]),
+  schematic: z.string().optional(),
+  version: z.string(),
+});
 
 const SkeemConfigSchema = z.object({
   schematicPackage: z.string(),
   currentVersion: z.string(),
-  // history: z.array(SkeemHistorySchema),
+  history: z.array(SkeemHistorySchema),
 });
 
 export type SkeemConfig = z.infer<typeof SkeemConfigSchema>;
@@ -47,7 +47,10 @@ export class ConfigService {
     return null;
   }
 
-  public async updateConfigFile(config: SkeemConfig, dir = '.'): Promise<void> {
+  public async updateConfigFile(
+    config: Partial<SkeemConfig>,
+    dir = '.'
+  ): Promise<void> {
     await writeFile(pathJoin(dir, '.skeemrc'), JSON.stringify(config, null, 2));
   }
 }

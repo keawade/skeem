@@ -2,6 +2,8 @@ import { Command, CommandRunner, Option } from 'nest-commander';
 import { LogService } from '../logger/index.js';
 import { Inject } from '@nestjs/common';
 import { TemplateService } from '../services/TemplateService.js';
+import { ConfigService } from '../services/ConfigService.js';
+import { NpmService } from '../services/NpmService.js';
 
 type CreateOptions = {
   forceToVersion?: string;
@@ -22,6 +24,8 @@ type CreateOptions = {
 export class CreateCommand extends CommandRunner {
   public constructor(
     @Inject(LogService) private readonly logger: LogService,
+    @Inject(ConfigService) private readonly config: ConfigService,
+    @Inject(NpmService) private readonly npm: NpmService,
     @Inject(TemplateService) private readonly template: TemplateService
   ) {
     super();
@@ -35,7 +39,16 @@ export class CreateCommand extends CommandRunner {
 
     await this.template.create(schematic, options);
 
-    // TODO: Create/update the .skeemrc file
+    await this.config.updateConfigFile({
+      schematicPackage: schematic,
+      currentVersion: await this.npm.getGlobalPackageVersion(schematic),
+      history: [
+        {
+          type: 'create',
+          version: options.version,
+        },
+      ],
+    });
   }
 
   @Option({
