@@ -13,7 +13,7 @@ type PatchOptions = {
 
 @Command({
   name: 'patch',
-  description: 'apply a schematic as a one-of patch',
+  description: 'apply a schematic as a one-off patch',
   arguments: '<schematic>',
   argsDescription: {
     schematic: 'name of skeem schematic package',
