@@ -1,8 +1,8 @@
 import { strings } from '@angular-devkit/core';
-import type { SchematicOptions } from './types/SchematicOptions.js';
+import type { BaseSkeemSchematicOptions } from './types/BaseSkeemSchematicOptions.js';
 import { stringify } from './stringify.js';
 
-type FullSchematicOptions<T extends SchematicOptions> = T &
+type FullSchematicOptions<T extends BaseSkeemSchematicOptions> = T &
   typeof strings & { stringify: typeof stringify };
 
 /**
@@ -12,7 +12,7 @@ type FullSchematicOptions<T extends SchematicOptions> = T &
  * Intended to prepare options for being interpolated into templated files.
  */
 export const addStringManipulationMethodsToOptions = <
-  T extends SchematicOptions
+  T extends BaseSkeemSchematicOptions
 >(
   options: T
 ): FullSchematicOptions<T> => ({

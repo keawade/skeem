@@ -2,7 +2,7 @@ import type { Rule, SchematicContext } from '@angular-devkit/schematics';
 import { chain, Tree, callRule } from '@angular-devkit/schematics';
 import type { Observable } from 'rxjs';
 import type { VersionDefinition } from '../types/VersionDefinition.js';
-import type { SchematicOptions } from '../types/SchematicOptions.js';
+import type { BaseSkeemSchematicOptions } from '../types/BaseSkeemSchematicOptions.js';
 import { logger } from '../logger.js';
 
 const wrapRuleWithLogs =
@@ -16,7 +16,7 @@ const wrapRuleWithLogs =
 /**
  * Applies all version rules in provided order as needed.
  */
-export const applyVersions = <T extends SchematicOptions>(
+export const applyVersions = <T extends BaseSkeemSchematicOptions>(
   /**
    * Sorted array of versions
    */

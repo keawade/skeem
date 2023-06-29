@@ -3,7 +3,7 @@ import {
   gt as semverGreaterThan,
   lte as semverLessThanOrEqual,
 } from 'semver';
-import type { SchematicOptions } from './types/SchematicOptions.js';
+import type { BaseSkeemSchematicOptions } from './types/BaseSkeemSchematicOptions.js';
 import type { VersionDefinition } from './types/VersionDefinition.js';
 
 /**
@@ -14,7 +14,7 @@ import type { VersionDefinition } from './types/VersionDefinition.js';
  * @param fromVersion Version to start after (non-inclusive)
  * @param toVersion Version to stop with (inclusive)
  */
-export const filterVersionsToApply = <T extends SchematicOptions>(
+export const filterVersionsToApply = <T extends BaseSkeemSchematicOptions>(
   allVersions: Record<string, VersionDefinition<T>>,
   fromVersion: string,
   toVersion: string

@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "skeem-demo-schematic",
+  "title": "Skeem demo schematic",
+  "type": "object",
+  "description": "Initialize a simple Express app.",
+  "required": ["fromVersion", "toVersion"],
+  "properties": {
+    "fromVersion": {
+      "type": "string",
+      "default": "0.0.0"
+    },
+    "toVersion": {
+      "type": "string",
+      "default": "latest"
+    }
+  }
+}

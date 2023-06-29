@@ -37,8 +37,10 @@ export class CreateCommand extends CommandRunner {
     );
     const [schematic] = args;
 
+    this.logger.info('Calling template.create');
     await this.template.create(schematic, options);
 
+    this.logger.info('updating config file');
     await this.config.updateConfigFile({
       schematicPackage: schematic,
       currentVersion: await this.npm.getGlobalPackageVersion(schematic),

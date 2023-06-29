@@ -1,6 +1,6 @@
 import type { Rule } from '@angular-devkit/schematics';
-import type { SchematicOptions } from './SchematicOptions.js';
+import type { BaseSkeemSchematicOptions } from './BaseSkeemSchematicOptions.js';
 
-export type VersionDefinition<T extends SchematicOptions> = (
+export type VersionDefinition<T extends BaseSkeemSchematicOptions> = (
   options: T
 ) => Rule;

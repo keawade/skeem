@@ -1,4 +1,4 @@
-export type { SchematicOptions } from './types/SchematicOptions.js';
+export * from './types/BaseSkeemSchematicOptions.js';
 export type { VersionDefinition } from './types/VersionDefinition.js';
 
 export * from './dependencies.js';

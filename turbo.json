@@ -3,7 +3,8 @@
   "pipeline": {
     "build": {
       "inputs": ["src/**/*.ts"],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**"],
+      "dependsOn": ["^build"]
     },
     "test": {
       "inputs": ["src/**/*.ts", "test/**/*.ts"],

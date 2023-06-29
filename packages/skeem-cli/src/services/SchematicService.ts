@@ -112,7 +112,7 @@ export class SchematicService {
     destinationPath: string,
     schematicOptions: { dryRun?: boolean | undefined; [key: string]: any } = {}
   ): Promise<void> {
-    this.logger.verbose(
+    this.logger.info(
       `Applying schematic '${this.collectionName}:${this.schematicName}'`
     );
 

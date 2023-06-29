@@ -8,7 +8,7 @@ import { join as pathJoin } from 'path';
 const SkeemHistorySchema = z.object({
   type: z.union([z.literal('create'), z.literal('update'), z.literal('patch')]),
   schematic: z.string().optional(),
-  version: z.string(),
+  version: z.string(), // TODO: Make sure we put `toVersion` here and not the library version
 });
 
 const SkeemConfigSchema = z.object({

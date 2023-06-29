@@ -1,0 +1,10 @@
+{
+  "$schema": "../../../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "base": {
+      "description": "Skeem schematic for a simple Express app.",
+      "factory": "./schematics/base/schematic#main",
+      "schema": "./schematics/base/schema.json"
+    }
+  }
+}
